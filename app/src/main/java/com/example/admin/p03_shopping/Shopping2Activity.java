@@ -229,7 +229,6 @@ public class Shopping2Activity extends Activity {
                             .setNegativeButton("ОК",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                             finish();
                                         }
                                     });
