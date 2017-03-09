@@ -1,10 +1,15 @@
 package com.example.admin.p03_shopping;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -12,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -85,6 +91,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
                     startActivity(intent);
                 }
             });
+            registerForContextMenu(listView);
         }
     }
 
@@ -359,5 +366,64 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
                 listView.setAdapter(arrayAdapter);
                 break;
         }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId() == R.id.listView3) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            menu.add(0, 0, 0, "Details");
+            menu.add(0, 1, 1, "Delete");
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem menuItem) {
+        listView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.clickanim));
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuItem.getMenuInfo();
+        String details = "";
+        final int index = info.position;
+        switch (menuItem.getItemId()) {
+            case 0:
+                c = db.rawQuery("select details from shopping where date = '" + listView.getItemAtPosition(index) + "'", null);
+                if (c.moveToFirst()) {
+                    do {
+                        details = c.getString(c.getColumnIndex("details"));
+                    } while (c.moveToNext());
+                }
+                c.close();
+                Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
+                intent.putExtra("info", details);
+                startActivity(intent);
+                break;
+            case 1:
+                final Context context = HistoryActivity.this;
+                String title = "Delete";
+                String message = "Do you want to delete exactly the shopping from " + listView.getItemAtPosition(index) + "?";
+
+                AlertDialog.Builder ad = new AlertDialog.Builder(context);
+                ad.setTitle(title);
+                ad.setMessage(message);
+                ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        db.delete("shopping", "date='" + listView.getItemAtPosition(index) + "'", null);
+                        Toast.makeText(context, "Deleted", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
+                        finish();
+                    }
+                });
+                ad.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
+                        finish();
+                    }
+                });
+                ad.setCancelable(true);
+                ad.show();
+                break;
+        }
+
+        return true;
     }
 }
