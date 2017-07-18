@@ -1,12 +1,13 @@
 package com.example.admin.p03_shopping;
 
 import android.content.Intent;
-import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,7 +19,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         b0 = (Button) findViewById(R.id.button8);
         b1 = (Button) findViewById(R.id.button);
         b2 = (Button) findViewById(R.id.button2);
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(1, 1, 1, "Help");
         menu.add(1, 2, 2, "About");
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -48,12 +47,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         "September", Toast.LENGTH_LONG).show();
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
+        view.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.clickanim));
+        view.setEnabled(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.setEnabled(true);
+            }
+        }, 300);
         switch (view.getId()) {
             case R.id.button:
                 startActivity(new Intent(getApplicationContext(), ItemsActivity.class));
