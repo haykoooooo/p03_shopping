@@ -1,12 +1,13 @@
-package com.example.admin.p03_shopping;
+package com.haykabelyan.shopping_calculator;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,6 +42,14 @@ public class AddActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                button.startAnimation(AnimationUtils.loadAnimation(AddActivity.this, R.anim.clickanim));
+                button.setEnabled(false);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        button.setEnabled(true);
+                    }
+                }, 300);
                 int count = 0;
                 name = text.getText().toString();
                 if (name.length() == 0)

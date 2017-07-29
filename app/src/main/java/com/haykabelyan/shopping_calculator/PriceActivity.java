@@ -1,4 +1,4 @@
-package com.example.admin.p03_shopping;
+package com.haykabelyan.shopping_calculator;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

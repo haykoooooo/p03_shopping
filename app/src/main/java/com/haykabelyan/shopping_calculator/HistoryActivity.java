@@ -1,10 +1,11 @@
-package com.example.admin.p03_shopping;
+package com.haykabelyan.shopping_calculator;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -77,6 +78,14 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    view.startAnimation(AnimationUtils.loadAnimation(HistoryActivity.this, R.anim.clickanim));
+                    listView.setEnabled(false);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listView.setEnabled(true);
+                        }
+                    }, 300);
                     view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.clickanim));
                     c = db.rawQuery("select details from shopping where date = '" + listView.getItemAtPosition(i) + "'", null);
                     if (c.moveToFirst()) {
@@ -400,7 +409,6 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
                 final Context context = HistoryActivity.this;
                 String title = "Delete";
                 String message = "Do you want to delete exactly the shopping from " + listView.getItemAtPosition(index) + "?";
-
                 AlertDialog.Builder ad = new AlertDialog.Builder(context);
                 ad.setTitle(title);
                 ad.setMessage(message);
@@ -414,8 +422,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
                 });
                 ad.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int arg1) {
-                        startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
-                        finish();
+
                     }
                 });
                 ad.setCancelable(true);

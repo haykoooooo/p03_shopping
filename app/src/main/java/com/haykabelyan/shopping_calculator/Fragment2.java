@@ -1,4 +1,4 @@
-package com.example.admin.p03_shopping;
+package com.haykabelyan.shopping_calculator;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
