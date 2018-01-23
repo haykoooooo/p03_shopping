@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_margin="@dimen/_5sdp"
     android:fillViewport="true"
     tools:context="com.haykabelyan.shopping_calculator.Shopping2Activity">
 
@@ -17,8 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/_3sdp"
             android:text="  Click on numbers to set your expected and final cost."
-            android:textColor="#FFFF00" />
+            android:textColor="#FFFF00"
+            android:textSize="@dimen/_14sdp" />
 
         <ScrollView
             android:layout_width="wrap_content"
@@ -53,10 +55,10 @@
                 android:layout_weight="1"
                 android:background="@drawable/headerrect"
                 android:gravity="center"
-                android:minHeight="45dp"
+                android:minHeight="@dimen/_30sdp"
                 android:text="Total"
                 android:textColor="#FF0000"
-                android:textSize="20sp" />
+                android:textSize="@dimen/_18sdp" />
 
             <TextView
                 android:id="@+id/expected"
@@ -65,10 +67,10 @@
                 android:layout_weight="1"
                 android:background="@drawable/headerrect"
                 android:gravity="center"
-                android:minHeight="45dp"
+                android:minHeight="@dimen/_30sdp"
                 android:text="0"
                 android:textColor="#FF0000"
-                android:textSize="20sp" />
+                android:textSize="@dimen/_18sdp" />
 
             <TextView
                 android:id="@+id/cost"
@@ -77,10 +79,10 @@
                 android:layout_weight="1"
                 android:background="@drawable/headerrect"
                 android:gravity="center"
-                android:minHeight="45dp"
+                android:minHeight="@dimen/_30sdp"
                 android:text="0"
                 android:textColor="#FF0000"
-                android:textSize="20sp" />
+                android:textSize="@dimen/_18sdp" />
         </LinearLayout>
 
         <Button
@@ -89,8 +91,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:text="Finish"
-            android:textAllCaps="false" />
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="   Finish   "
+            android:textAllCaps="false"
+            android:textSize="@dimen/_16sdp" />
     </LinearLayout>
 </ScrollView>

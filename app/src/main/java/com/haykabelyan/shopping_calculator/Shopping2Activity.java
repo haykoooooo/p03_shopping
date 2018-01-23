@@ -110,8 +110,8 @@ public class Shopping2Activity extends Activity {
             @Override
             public void onClick(View view) {
                 final Context context = Shopping2Activity.this;
-                String title = "Delete";
-                String message = "Do you want to finish this shopping?";
+                String title = "Finish";
+                String message = "Did you really finish this shopping?";
                 AlertDialog.Builder ad = new AlertDialog.Builder(context);
                 ad.setTitle(title);
                 ad.setMessage(message);
@@ -134,8 +134,7 @@ public class Shopping2Activity extends Activity {
                                 month = "0" + month;
                             date = year + "." + month + "." + day + ", " + hour + ":" + minute;
                             savedSum = exp - sum;
-
-                            details = "";
+                            details = "\n Shopping date: " + date + "\n" + "\n Bought: \n";
                             for (int i = 0; i < itemsArray.length; i++) {
                                 if (i % 3 == 0)
                                     details += itemsArray[i] + "-";
@@ -144,7 +143,7 @@ public class Shopping2Activity extends Activity {
                                 if (i % 3 == 2)
                                     details += itemsArray[i] + "\n";
                             }
-                            details += "\n" + "Total - " + "(" + exp + "-expected) " + sum + " dram.\n";
+                            details += "\n" + "Total - " + sum + " dram " + "(expected - " + exp + ") " + "\n";
                             if (exp >= sum)
                                 details += "\n" + "Saved sum - " + savedSum + " dram.\n";
                             else
@@ -212,7 +211,6 @@ public class Shopping2Activity extends Activity {
                             dbHelper = new DBHelper(getApplicationContext());
                             db = dbHelper.getWritableDatabase();
                             db.insert("shopping", null, cv);
-
                             String message = "The shopping is finished.\n" + shoppingInfo;
                             Drawable icon = null;
                             switch (iconNumber) {
@@ -334,10 +332,8 @@ public class Shopping2Activity extends Activity {
             super.onBackPressed();
             return;
         }
-
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "To exit, please click BACK again", Toast.LENGTH_LONG).show();
-
         new Handler().postDelayed(new Runnable() {
 
             @Override

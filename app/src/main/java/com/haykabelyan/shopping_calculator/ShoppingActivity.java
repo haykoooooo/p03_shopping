@@ -1,6 +1,5 @@
 package com.haykabelyan.shopping_calculator;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,7 +21,6 @@ public class ShoppingActivity extends AppCompatActivity {
     private SQLiteDatabase db;
     private ArrayList<String> itemsList;
     ArrayList<String> chosenItems;
-    private ContentValues cv;
     private Cursor c;
     private String[] itemsArray;
     private ArrayAdapter<String> adapter;
@@ -47,7 +45,7 @@ public class ShoppingActivity extends AppCompatActivity {
             }
             listView = (ListView) findViewById(R.id.listView2);
             listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, itemsArray);
+            adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item_multiple_choice, itemsArray);
             listView.setAdapter(adapter);
             buttonNext.setOnClickListener(new View.OnClickListener() {
                 @Override

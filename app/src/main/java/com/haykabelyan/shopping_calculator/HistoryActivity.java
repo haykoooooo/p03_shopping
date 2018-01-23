@@ -429,7 +429,6 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
                 ad.show();
                 break;
         }
-
         return true;
     }
 }

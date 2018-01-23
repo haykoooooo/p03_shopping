@@ -10,10 +10,11 @@
     tools:context="com.haykabelyan.shopping_calculator.HelpActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="  This program allows to calculate your shopping costs and money saving relative to your expectations. \n  To use this program, first you need to add products names you want to purchase to items list. Once you add them, you can use them in the list in future."
-        android:id="@+id/textView"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="  This program allows to calculate your shopping costs and money saving relative to your expectations. \n  To use this program, first you need to add products names you want to purchase to items list. Once you add them, you can use them in the list in future."
+        android:textSize="@dimen/_14sdp" />
 </RelativeLayout>

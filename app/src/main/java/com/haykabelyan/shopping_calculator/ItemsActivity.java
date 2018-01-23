@@ -1,11 +1,12 @@
 package com.haykabelyan.shopping_calculator;
 
 import android.app.Activity;
-import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +24,6 @@ public class ItemsActivity extends Activity {
     private DBHelper dbHelper;
     private SQLiteDatabase db;
     private ArrayList<String> itemsList;
-    private ContentValues cv;
     private Cursor c;
     private String[] itemsArray;
     private ArrayAdapter<String> adapter;
@@ -55,31 +55,51 @@ public class ItemsActivity extends Activity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.clickanim));
+                    listView.setEnabled(false);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listView.setEnabled(true);
+                        }
+                    }, 300);
                     String title = itemsArray[i];
-                    String message = "Choose an action:";
-                    String button1String = "Edit";
-                    String button2String = "Delete";
                     ad = new AlertDialog.Builder(ItemsActivity.this);
                     ad.setTitle(title);
-                    ad.setMessage(message);
+                    ad.setMessage("Choose an action");
                     k = i;
-                    ad.setPositiveButton(button1String, new DialogInterface.OnClickListener() {
+                    ad.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int arg1) {
                             Intent intent = new Intent(getApplicationContext(), UpdateActivity.class);
                             intent.putExtra("oldName", itemsArray[k]);
                             startActivity(intent);
-                            finish();
                         }
                     });
-                    ad.setNegativeButton(button2String, new DialogInterface.OnClickListener() {
+                    ad.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int arg1) {
-                            try {
-                                db.delete("items", "name = '" + itemsArray[k] + "'", null);
-                                startActivity(new Intent(getApplicationContext(), ItemsActivity.class));
-                                finish();
-                            } catch (Exception e) {
-                                Toast.makeText(getApplicationContext(), "No such item.", Toast.LENGTH_SHORT).show();
-                            }
+                            final Context context = ItemsActivity.this;
+                            String title = "Delete";
+                            String message = "Do you want to delete the " + itemsArray[k] + "?";
+                            AlertDialog.Builder ad = new AlertDialog.Builder(context);
+                            ad.setTitle(title);
+                            ad.setMessage(message);
+                            ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int arg1) {
+                                    try {
+                                        db.delete("items", "name = '" + itemsArray[k] + "'", null);
+                                        startActivity(new Intent(getApplicationContext(), ItemsActivity.class));
+                                        finish();
+                                    } catch (Exception e) {
+                                        Toast.makeText(getApplicationContext(), "No such item.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                            ad.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int arg1) {
+
+                                }
+                            });
+                            ad.setCancelable(true);
+                            ad.show();
                         }
                     });
                     ad.setCancelable(true);

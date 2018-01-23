@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center_vertical"
-        android:minHeight="45dp"
+        android:minHeight="@dimen/_30sdp"
         android:text=""
         android:textColor="#0000FF"
-        android:textSize="18sp"></TextView>
+        android:textSize="@dimen/_16sdp"></TextView>
 </LinearLayout>

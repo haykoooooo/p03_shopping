@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
+    android:layout_margin="@dimen/_10sdp"
     android:orientation="vertical">
 
     <TextView
@@ -11,6 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text=" No items. Go back and add item by clicking the ADD ITEM button."
-        android:textSize="24dp" />
+        android:text="   No items. Go back and add item by clicking the ADD ITEM button."
+        android:textSize="@dimen/_20sdp" />
 </RelativeLayout>

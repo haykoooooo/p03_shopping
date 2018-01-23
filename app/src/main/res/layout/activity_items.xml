@@ -13,9 +13,11 @@
         android:id="@+id/helpTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/_5sdp"
         android:text=" If you can't find the item, go back and add by clicking the ADD ITEM button."
-        android:textColor="#FFFF00" />
+        android:textColor="#FFFF00"
+        android:textSize="@dimen/_14sdp" />
 
     <ListView
         android:id="@+id/listView"
@@ -23,5 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/helpTV"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/_5sdp" />
 </RelativeLayout>
